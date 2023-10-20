@@ -362,38 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiVideoVideo extends Schema.CollectionType {
-  collectionName: 'videos';
-  info: {
-    singularName: 'video';
-    pluralName: 'videos';
-    displayName: 'Video';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    video_preview: Attribute.Media;
-    video_file: Attribute.Media;
-    video_name: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::video.video',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::video.video',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -663,7 +631,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -692,6 +659,45 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    customer_role: Attribute.String & Attribute.DefaultTo<'user'>;
+    user_avatar: Attribute.Media;
+    user_gender: Attribute.String;
+    date_of_birth: Attribute.Date;
+    user_cover: Attribute.Media;
+    user_first_name: Attribute.String;
+    user_last_name: Attribute.String;
+    user_address: Attribute.String;
+    user_LLC: Attribute.String;
+    user_description: Attribute.String;
+    user_vimeo: Attribute.String;
+    user_instagram: Attribute.String;
+    user_facebook: Attribute.String;
+    user_twitter: Attribute.String;
+    created_videos: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::video.video'
+    >;
+    user_playlist: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::playlist.playlist'
+    >;
+    store: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'api::store.store'
+    >;
+    user_stores: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::store.store'
+    >;
+    user_comments: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::comment.comment'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -709,6 +715,193 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiCommentComment extends Schema.CollectionType {
+  collectionName: 'comments';
+  info: {
+    singularName: 'comment';
+    pluralName: 'comments';
+    displayName: 'Comment';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    comment_text: Attribute.String;
+    comment_likes: Attribute.Integer;
+    comment_dislikes: Attribute.Integer;
+    comment_author: Attribute.Relation<
+      'api::comment.comment',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    comment_video: Attribute.Relation<
+      'api::comment.comment',
+      'manyToOne',
+      'api::video.video'
+    >;
+    comment: Attribute.Relation<
+      'api::comment.comment',
+      'manyToOne',
+      'api::comment.comment'
+    >;
+    comment_replies: Attribute.Relation<
+      'api::comment.comment',
+      'oneToMany',
+      'api::comment.comment'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::comment.comment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::comment.comment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPlaylistPlaylist extends Schema.CollectionType {
+  collectionName: 'playlists';
+  info: {
+    singularName: 'playlist';
+    pluralName: 'playlists';
+    displayName: 'Playlist';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    palylist_name: Attribute.String;
+    palylist_description: Attribute.String;
+    palylist_type: Attribute.String;
+    videos: Attribute.Relation<
+      'api::playlist.playlist',
+      'oneToMany',
+      'api::video.video'
+    >;
+    playlists_user: Attribute.Relation<
+      'api::playlist.playlist',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::playlist.playlist',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::playlist.playlist',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiStoreStore extends Schema.CollectionType {
+  collectionName: 'stores';
+  info: {
+    singularName: 'store';
+    pluralName: 'stores';
+    displayName: 'Store';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    store_name: Attribute.String;
+    store_link: Attribute.String;
+    store_preview: Attribute.Media;
+    store_description: Attribute.String;
+    users_permissions_user: Attribute.Relation<
+      'api::store.store',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    store_author: Attribute.Relation<
+      'api::store.store',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::store.store',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::store.store',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiVideoVideo extends Schema.CollectionType {
+  collectionName: 'videos';
+  info: {
+    singularName: 'video';
+    pluralName: 'videos';
+    displayName: 'Video';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    video_file: Attribute.Media;
+    video_name: Attribute.String;
+    video_length: Attribute.Integer;
+    video_preview: Attribute.Media;
+    video_type: Attribute.String & Attribute.DefaultTo<'mind'>;
+    video_description: Attribute.String;
+    video_shop_link: Attribute.String;
+    video_likes: Attribute.Integer;
+    video_dislikes: Attribute.Integer;
+    video_views: Attribute.Integer;
+    user_creator: Attribute.Relation<
+      'api::video.video',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    video_comments: Attribute.Relation<
+      'api::video.video',
+      'oneToMany',
+      'api::comment.comment'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::video.video',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::video.video',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -719,13 +912,16 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::video.video': ApiVideoVideo;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::comment.comment': ApiCommentComment;
+      'api::playlist.playlist': ApiPlaylistPlaylist;
+      'api::store.store': ApiStoreStore;
+      'api::video.video': ApiVideoVideo;
     }
   }
 }
