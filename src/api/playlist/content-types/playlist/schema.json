@@ -29,7 +29,7 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "user_playlist"
+      "inversedBy": "user_playlists"
     }
   }
 }

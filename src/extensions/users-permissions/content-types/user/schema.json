@@ -70,11 +70,12 @@
       "default": "user"
     },
     "user_avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "user_gender": {
       "type": "string"
@@ -83,14 +84,15 @@
       "type": "date"
     },
     "user_cover": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "user_first_name": {
       "type": "string"
@@ -119,17 +121,11 @@
     "user_twitter": {
       "type": "string"
     },
-    "user_playlist": {
+    "user_playlists": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::playlist.playlist",
       "mappedBy": "playlists_user"
-    },
-    "store": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::store.store",
-      "mappedBy": "users_permissions_user"
     },
     "user_stores": {
       "type": "relation",
@@ -148,6 +144,28 @@
       "relation": "oneToMany",
       "target": "api::video.video",
       "mappedBy": "video_creator"
+    },
+    "user_view_later": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::video.video"
+    },
+    "user_latest": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::video.video"
+    },
+    "user_subscriptions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "user_subscripteds"
+    },
+    "user_subscripteds": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "user_subscriptions"
     }
   }
 }

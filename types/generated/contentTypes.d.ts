@@ -673,15 +673,10 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     user_instagram: Attribute.String;
     user_facebook: Attribute.String;
     user_twitter: Attribute.String;
-    user_playlist: Attribute.Relation<
+    user_playlists: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToMany',
       'api::playlist.playlist'
-    >;
-    store: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToOne',
-      'api::store.store'
     >;
     user_stores: Attribute.Relation<
       'plugin::users-permissions.user',
@@ -697,6 +692,26 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'plugin::users-permissions.user',
       'oneToMany',
       'api::video.video'
+    >;
+    user_view_later: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::video.video'
+    >;
+    user_latest: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::video.video'
+    >;
+    user_subscriptions: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    user_subscripteds: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToMany',
+      'plugin::users-permissions.user'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -825,11 +840,6 @@ export interface ApiStoreStore extends Schema.CollectionType {
     store_link: Attribute.String;
     store_preview: Attribute.Media;
     store_description: Attribute.String;
-    users_permissions_user: Attribute.Relation<
-      'api::store.store',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
     store_author: Attribute.Relation<
       'api::store.store',
       'manyToOne',
