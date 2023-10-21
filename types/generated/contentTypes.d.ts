@@ -673,11 +673,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     user_instagram: Attribute.String;
     user_facebook: Attribute.String;
     user_twitter: Attribute.String;
-    created_videos: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::video.video'
-    >;
     user_playlist: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToMany',
@@ -697,6 +692,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'plugin::users-permissions.user',
       'oneToMany',
       'api::comment.comment'
+    >;
+    created_videos: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::video.video'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -859,6 +859,7 @@ export interface ApiVideoVideo extends Schema.CollectionType {
     singularName: 'video';
     pluralName: 'videos';
     displayName: 'Video';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -874,7 +875,7 @@ export interface ApiVideoVideo extends Schema.CollectionType {
     video_likes: Attribute.Integer;
     video_dislikes: Attribute.Integer;
     video_views: Attribute.Integer;
-    user_creator: Attribute.Relation<
+    video_creator: Attribute.Relation<
       'api::video.video',
       'manyToOne',
       'plugin::users-permissions.user'

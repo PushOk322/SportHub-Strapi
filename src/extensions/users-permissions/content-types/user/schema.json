@@ -119,12 +119,6 @@
     "user_twitter": {
       "type": "string"
     },
-    "created_videos": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::video.video",
-      "mappedBy": "user_creator"
-    },
     "user_playlist": {
       "type": "relation",
       "relation": "oneToMany",
@@ -148,6 +142,12 @@
       "relation": "oneToMany",
       "target": "api::comment.comment",
       "mappedBy": "comment_author"
+    },
+    "created_videos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::video.video",
+      "mappedBy": "video_creator"
     }
   }
 }

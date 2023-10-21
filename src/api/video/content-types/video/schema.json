@@ -4,7 +4,8 @@
   "info": {
     "singularName": "video",
     "pluralName": "videos",
-    "displayName": "Video"
+    "displayName": "Video",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -12,11 +13,12 @@
   "pluginOptions": {},
   "attributes": {
     "video_file": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "videos"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "video_name": {
       "type": "string"
@@ -25,14 +27,15 @@
       "type": "integer"
     },
     "video_preview": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "video_type": {
       "type": "string",
@@ -53,7 +56,7 @@
     "video_views": {
       "type": "integer"
     },
-    "user_creator": {
+    "video_creator": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
