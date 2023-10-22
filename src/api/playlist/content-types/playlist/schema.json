@@ -4,20 +4,21 @@
   "info": {
     "singularName": "playlist",
     "pluralName": "playlists",
-    "displayName": "Playlist"
+    "displayName": "Playlist",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "palylist_name": {
+    "playlist_name": {
       "type": "string"
     },
-    "palylist_description": {
+    "playlist_description": {
       "type": "string"
     },
-    "palylist_type": {
+    "playlist_type": {
       "type": "string"
     },
     "videos": {

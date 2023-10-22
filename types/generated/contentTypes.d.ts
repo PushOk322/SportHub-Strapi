@@ -789,14 +789,15 @@ export interface ApiPlaylistPlaylist extends Schema.CollectionType {
     singularName: 'playlist';
     pluralName: 'playlists';
     displayName: 'Playlist';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    palylist_name: Attribute.String;
-    palylist_description: Attribute.String;
-    palylist_type: Attribute.String;
+    playlist_name: Attribute.String;
+    playlist_description: Attribute.String;
+    playlist_type: Attribute.String;
     videos: Attribute.Relation<
       'api::playlist.playlist',
       'oneToMany',
