@@ -743,8 +743,8 @@ export interface ApiCommentComment extends Schema.CollectionType {
   };
   attributes: {
     comment_text: Attribute.String;
-    comment_likes: Attribute.Integer;
-    comment_dislikes: Attribute.Integer;
+    comment_likes: Attribute.Integer & Attribute.DefaultTo<1>;
+    comment_dislikes: Attribute.Integer & Attribute.DefaultTo<1>;
     comment_author: Attribute.Relation<
       'api::comment.comment',
       'manyToOne',
@@ -883,8 +883,8 @@ export interface ApiVideoVideo extends Schema.CollectionType {
     video_type: Attribute.String & Attribute.DefaultTo<'mind'>;
     video_description: Attribute.String;
     video_shop_link: Attribute.String;
-    video_likes: Attribute.Integer;
-    video_dislikes: Attribute.Integer;
+    video_likes: Attribute.Integer & Attribute.DefaultTo<1>;
+    video_dislikes: Attribute.Integer & Attribute.DefaultTo<1>;
     video_views: Attribute.Integer;
     video_creator: Attribute.Relation<
       'api::video.video',

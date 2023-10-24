@@ -48,10 +48,12 @@
       "type": "string"
     },
     "video_likes": {
-      "type": "integer"
+      "type": "integer",
+      "default": 1
     },
     "video_dislikes": {
-      "type": "integer"
+      "type": "integer",
+      "default": 1
     },
     "video_views": {
       "type": "integer"

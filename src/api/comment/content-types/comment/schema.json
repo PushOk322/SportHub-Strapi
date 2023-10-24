@@ -16,10 +16,12 @@
       "type": "string"
     },
     "comment_likes": {
-      "type": "integer"
+      "type": "integer",
+      "default": 1
     },
     "comment_dislikes": {
-      "type": "integer"
+      "type": "integer",
+      "default": 1
     },
     "comment_author": {
       "type": "relation",
